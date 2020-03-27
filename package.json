@@ -1,0 +1,19 @@
+{
+  "name": "deskbluez",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "binary": "^0.3.0",
+    "bluez": "^0.3.3",
+    "commander": "^5.0.0",
+    "data-store": "^4.0.3",
+    "mqtt": "^3.0.0",
+    "prompts": "^2.3.2"
+  }
+}
