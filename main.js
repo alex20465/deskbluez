@@ -1,9 +1,11 @@
 #!/usr/bin/env node
+const homedir = require("os").homedir();
+const path = require("path");
 const prompts = require('prompts');
 const mqtt = require('mqtt')
 const { program } = require('commander');
 
-const store = require("data-store")({ path: ".config" });
+const store = require("data-store")({ path: path.join(homedir, ".config", "deskbluez") });
 
 const Bluetooth = require("./lib/bluetooth");
 const Desk = require("./lib/desk");
