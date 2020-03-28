@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const prompts = require('prompts');
 const mqtt = require('mqtt')
 const { program } = require('commander');
