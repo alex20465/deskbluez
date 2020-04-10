@@ -69,15 +69,19 @@ const move = async (data) => {
     const desk = new Desk(device);
     await desk.connect();
 
-    if (data.up) {
+    if(data.to) {
+        const positionToMove = parseInt(data.to);
+        await desk.moveTo(positionToMove);
+    } else if (data.up) {
         await desk.up();
     } else {
         await desk.down();
     }
 
+    await desk.disconnect();
+
     process.exit(0);
 }
-
 
 const serve = async (endpoint, publishTopic, subscribeTopic, data) => {
 
@@ -96,6 +100,7 @@ const serve = async (endpoint, publishTopic, subscribeTopic, data) => {
 
     const device = await bluetooth.connect(address);
     const desk = new Desk(device);
+
     await desk.connect();
 
     const client = mqtt.connect(endpoint, {
@@ -107,13 +112,17 @@ const serve = async (endpoint, publishTopic, subscribeTopic, data) => {
         console.log("Connected to the MQTT Broker");
 
         let lastP = 0;
+
         desk.startPositionListening((position) => {
+
             const diff = Date.now() - lastP;
             if (diff > 100) {
                 lastP = Date.now();
                 client.publish(publishTopic, JSON.stringify(position));
             }
         });
+    
+        setInterval(async () => await desk.getCurrentPosition(), 5000);
 
         client.subscribe(subscribeTopic, {}, (err) => {
             if (err) {
@@ -124,15 +133,39 @@ const serve = async (endpoint, publishTopic, subscribeTopic, data) => {
 
         client.on("message", (topic, data) => {
             if (topic !== subscribeTopic) return;
-            const command = data.toString();
+            const [command, position = null] = data.toString().split(":");
 
             if (command === "up") {
                 desk.up();
             } else if (command === "down") {
                 desk.down();
+            } else if(command === "to" && position) {
+                desk.cancelCurrentMove().then(() => desk.moveTo(parseInt(position)));
             }
         });
     });
+}
+
+const position = async () => {
+    const bluetooth = new Bluetooth();
+    await bluetooth.init();
+
+    await bluetooth.discoverDevices();
+
+    const address = store.get("connectedDevice");
+
+    if (!address) {
+        throw new Error("No connected device found!");
+    }
+
+    const device = await bluetooth.connect(address);
+    const desk = new Desk(device);
+    await desk.connect();
+
+    const position = await desk.getCurrentPosition();
+    console.log(position);
+    await desk.disconnect();
+    process.exit();
 }
 
 const errorHandler = (action) => {
@@ -158,6 +191,11 @@ program
     .command("move")
     .option("--up")
     .option("--down")
+    .option("--to [position]")
     .action(errorHandler(move));
+
+program
+    .command("position")
+    .action(errorHandler(position));
 
 program.parse(process.argv);
