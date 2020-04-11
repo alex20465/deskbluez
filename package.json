@@ -1,9 +1,13 @@
 {
   "name": "deskbluez",
-  "version": "1.1.0",
-  "description": "",
+  "version": "1.1.2",
+  "description": "CLI tool to control lower energy actuator systems (office desks) via bluetooth. ",
   "bin": {
     "deskbluez": "./bin/deskbluez"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alex20465/deskbluez"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
