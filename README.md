@@ -1,6 +1,6 @@
 # DESKBLUEZ
 
-**THIS IS A REQWRITE OF BLUEDESK PYTHON IMPLEMENTATION AS NODEJS MODULE**
+**THIS IS A REWRITE OF BLUEDESK PYTHON IMPLEMENTATION AS NODEJS MODULE**
 
 Connects to a low energy actuator system via bluetooth and allows remote control via command line or internal managed interface.
 
