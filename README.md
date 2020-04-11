@@ -24,7 +24,7 @@ Connects to a low energy actuator system via bluetooth and allows remote control
 - libdbus-1-dev
 
 ```
-npm install deskbluez
+npm install -g deskbluez
 ```
 
 # CLI Usage
