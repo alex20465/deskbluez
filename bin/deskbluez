@@ -69,7 +69,7 @@ const move = async (data) => {
     const desk = new Desk(device);
     await desk.connect();
 
-    if(data.to) {
+    if (data.to) {
         const positionToMove = parseInt(data.to);
         await desk.moveTo(positionToMove);
     } else if (data.up) {
@@ -121,8 +121,15 @@ const serve = async (endpoint, publishTopic, subscribeTopic, data) => {
                 client.publish(publishTopic, JSON.stringify(position));
             }
         });
-    
-        setInterval(async () => await desk.getCurrentPosition(), 5000);
+
+        setInterval(async () => {
+            try {
+                await desk.getCurrentPosition();
+            } catch (err) {
+                console.error("Position beat failed:", err.message);
+                process.exit(1);
+            }
+        }, 5000);
 
         client.subscribe(subscribeTopic, {}, (err) => {
             if (err) {
@@ -139,7 +146,7 @@ const serve = async (endpoint, publishTopic, subscribeTopic, data) => {
                 desk.up();
             } else if (command === "down") {
                 desk.down();
-            } else if(command === "to" && position) {
+            } else if (command === "to" && position) {
                 desk.cancelCurrentMove().then(() => desk.moveTo(parseInt(position)));
             }
         });
