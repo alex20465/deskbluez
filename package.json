@@ -10,7 +10,9 @@
     "url": "https://github.com/alex20465/deskbluez"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "sv:release": "standard-version --release",
+    "sv:prerelease": "standard-version --prerelease"
   },
   "author": "",
   "license": "ISC",
@@ -20,6 +22,7 @@
     "commander": "^5.0.0",
     "data-store": "^4.0.3",
     "mqtt": "^3.0.0",
-    "prompts": "^2.3.2"
+    "prompts": "^2.3.2",
+    "standard-version": "^9.0.0"
   }
 }
