@@ -15,7 +15,13 @@ Connects to a low energy actuator system via bluetooth and allows remote control
 
 - move to specific position
 - move Up / Down
-- MQTT message broker connection to subcribe and publish the real state of the desk.
+- multiple profiles
+- safety resistance detection and handling
+- unsupported device reporting / debug debug
+
+# DEMO
+
+![DEMO](./assets/preview.gif)
 
 # Requirements
 
@@ -29,22 +35,27 @@ npm install -g deskbluez
 
 # CLI Usage
 
-
 ## HELP
 
 ```
 Usage: deskbluez [options] [command]
 
 Options:
-  -V, --version                                               output the version number
-  -h, --help                                                  display help for command
+  -V, --version        output the version number
+  --profile <profile>  select configuration profile (default: "default")
+  --adapter <adapter>  bluetooth adapter selection (default: "hci0")
+  --debug              enable more details logs (default: false)
+  -h, --help           display help for command
 
 Commands:
-  connect
-  serve [options] <endpoint> <publishTopic> <subscribeTopic>
-  move [options]
-  position
-  help [command]                                              display help for command
+  connect              connect and pair a supported device
+  disconnect           disconnect and remove connected device
+  status               get information about the current connect device
+  report               start a report process for unsupported device and get all information for support
+  up                   perform a single UP action
+  down                 perform a single DOWN action
+  to <position>        move desk to a specific position (absolute height), supported units: centimeter/inches, example: '65cm' OR '40inch'
+  help [command]       display help for command
 ```
 
 ## CONNECT
@@ -64,55 +75,17 @@ Device connected successfully.
 ## Move to a position
 
 ```
-hostname@user:~/$ deskbluez move --to 3000
+hostname@user:~/$ deskbluez to 66cm
 ```
 
 ## Move UP
 
 ```
-hostname@user:~/$ deskbluez move --up
+hostname@user:~/$ deskbluez up
 ```
 
 ## Move DOWN
 
 ```
-hostname@user:~/$ deskbluez move --down
+hostname@user:~/$ deskbluez down
 ```
-
-# Node-Red and MQTT Broker
-
-```
-Usage: deskbluez serve [options] <endpoint> <publishTopic> <subscribeTopic>
-
-Options:
-  --password [password]  
-  --username [username]  
-  -h, --help             display help for command
-```
-
-This command allows to keep the connection with your desk and get real-time feedback about the desk-state.
-
-Requirements:
-
-    - MQTT Broker (https://randomnerdtutorials.com/how-to-install-mosquitto-broker-on-raspberry-pi/)
-
-    - Use pm2 to keep the process running
-
-    - Install Node-red and exchange command with the service.
-
-
-```
-hostname@user:~/$ deskbluez serve mqtt://<hostToMqttBroker>:1883 positionUpdate control
-```
-
-This command will publish a JSON (example: `{"height": 3000}`) to the `positionUpdate` topic and will subscribe to the `control` topic in order to receive command.
-
-## COMMANDS API:
-
-```
-- UP: "up" <string>
-- DOWN: "down" <string>
-- MOVE-TO: "to:<position>" <string> (example: "to:3000")
-```
-
-You can use Node-Red to control and display the realtime data of your desk.
