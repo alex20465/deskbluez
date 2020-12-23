@@ -40,8 +40,14 @@
   },
   "standard-version": {
     "skip": {
-      "commit": true,
+      "commit": false,
       "tag": true
-    }
+    },
+    "bumpFiles": [
+      {
+        "filename": "src/version.json",
+        "type": "json"
+      }
+    ]
   }
 }
