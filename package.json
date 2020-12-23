@@ -47,6 +47,10 @@
       {
         "filename": "src/version.json",
         "type": "json"
+      },
+      {
+        "filename": "package.json",
+        "type": "json"
       }
     ]
   }
