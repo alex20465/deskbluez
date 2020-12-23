@@ -19,6 +19,10 @@ Connects to a low energy actuator system via bluetooth and allows remote control
 - safety resistance detection and handling
 - unsupported device reporting / debug debug
 
+# DEMO
+
+![DEMO](./assets/preview.gif)
+
 # Requirements
 
 - Linux
