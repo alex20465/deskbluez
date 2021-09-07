@@ -1,6 +1,6 @@
 {
   "name": "deskbluez",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "CLI tool to control lower energy actuator systems (office desks) via bluetooth. ",
   "bin": {
     "deskbluez": "./bin/deskbluez"
