@@ -4,7 +4,6 @@
 
 Connects to a low energy actuator system via bluetooth and allows remote control via command line or internal managed interface.
 
-
 ## Supported and Tested Desks
 
 - [Linak Desk 8721 (Module)](https://www.linak.com/products/controls/desk-control-basic-app/) / [IKEA IDÅSEN](https://www.ikea.com/gb/en/p/idasen-desk-sit-stand-brown-beige-s79280917/)
@@ -89,3 +88,8 @@ hostname@user:~/$ deskbluez up
 ```
 hostname@user:~/$ deskbluez down
 ```
+
+## See also
+
+- [Desk graph - graphql implementation ](https://github.com/alex20465/deskgraph)
+- [Desk man - ongoing electron app (under development)](https://github.com/alex20465/deskman)
