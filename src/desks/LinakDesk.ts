@@ -34,7 +34,7 @@ export class LinakDesk extends AbstractDesk {
     ]
 
     async subscribe() {
-        const characteristic = this.getCharacteristic(COMMANDS.NOTIFICATION);
+        const characteristic = await this.getCharacteristic(COMMANDS.NOTIFICATION);
         logger.debug("LINAK:DESK: subscribe notifications");
         await characteristic.StartNotify();
         // just to define the current state.
@@ -56,21 +56,21 @@ export class LinakDesk extends AbstractDesk {
     }
 
     async up() {
-        const characteristic = this.getCharacteristic(COMMANDS.CONTROL);
+        const characteristic = await this.getCharacteristic(COMMANDS.CONTROL);
         const value = this.transcoder.encodeUp();
         logger.debug("LINAK:DESK: handle UP, write value", COMMANDS.CONTROL, value);
         await characteristic.WriteValue(value);
     }
 
     async down() {
-        const characteristic = this.getCharacteristic(COMMANDS.CONTROL);
+        const characteristic = await this.getCharacteristic(COMMANDS.CONTROL);
         const value = this.transcoder.encodeDown();
         logger.debug("LINAK:DESK: handle DOWN, write value", COMMANDS.CONTROL, value);
         await characteristic.WriteValue(this.transcoder.encodeDown());
     }
 
     async state(): Promise<DeskState> {
-        const characteristic = this.getCharacteristic(COMMANDS.GET_CURRENT_STATE);
+        const characteristic = await this.getCharacteristic(COMMANDS.GET_CURRENT_STATE);
         logger.debug("LINAK:DESK: request state...");
         const data = await characteristic.ReadValue();
         const state = this.transcoder.decodeState(data);
@@ -79,7 +79,7 @@ export class LinakDesk extends AbstractDesk {
     }
 
     async stop() {
-        const characteristic = this.getCharacteristic(COMMANDS.CONTROL);
+        const characteristic = await this.getCharacteristic(COMMANDS.CONTROL);
         const value = this.transcoder.encodeStop();
         logger.debug("LINAK:DESK: handle STOP, write value", COMMANDS.CONTROL, value);
         await characteristic.WriteValue(this.transcoder.encodeStop());

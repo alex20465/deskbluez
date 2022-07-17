@@ -57,9 +57,9 @@ export abstract class AbstractDesk {
         }
     }
 
-    getCharacteristic(name: string) {
+    async getCharacteristic(name: string) {
         const command = this.getCommand(name);
-        const service = this.device.getService(command.service);
+        const service = await this.device.getService(command.service);
 
         if (!service) {
             throw new UnsupportedServiceError(`Service ${name} [${command.service}] not available.`);
@@ -112,7 +112,7 @@ export abstract class AbstractDesk {
 
 
         for (const command of this.commands()) {
-            const service = this.device.getService(command.service);
+            const service = await this.device.getService(command.service);
 
             if (!service) {
                 logger.debug("No service found, command not supported", {
@@ -122,7 +122,7 @@ export abstract class AbstractDesk {
                 return false;
             }
 
-            const characteristic = service.getCharacteristic(command.characteristic);
+            const characteristic = await service.getCharacteristic(command.characteristic);
 
             if (!characteristic) {
                 logger.debug("No characteristic found, command not supported", {

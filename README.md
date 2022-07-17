@@ -25,8 +25,9 @@ Connects to a low energy actuator system via bluetooth and allows remote control
 # Requirements
 
 - Linux
-- libglib2.0-dev
-- libdbus-1-dev
+- `libglib2.0-dev`
+- `libdbus-1-dev`
+- `dbus-python` OR `dbus-python-devel` (fedora)
 
 ```
 npm install -g deskbluez

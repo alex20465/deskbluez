@@ -1,8 +1,8 @@
-import DataStore from "data-store";
 import { join } from "path";
 import { homedir } from "os";
 import { unlinkSync } from "fs";
 import logger from "./logger";
+import DataStore = require("data-store");
 
 interface ConnectedDevice {
     name: string
@@ -17,7 +17,7 @@ export class ConfigManager {
 
     constructor(private profile: string) {
         this.path = join(homedir(), ".config", `deskbluez-${this.profile}`);
-        this.store = DataStore({ path: this.path });
+        this.store = new DataStore({ path: this.path });
 
         logger.debug("CONFIG: load", { configPath: this.path, profile: this.profile });
     }
