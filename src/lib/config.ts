@@ -25,7 +25,6 @@ class DataStore {
 
 
     get(key: string): string | number | boolean {
-        console.log(this.store.keys())
         return this.store.get(key)
     }
 
@@ -71,7 +70,7 @@ export class ConfigManager {
         const name = this.store.get("connectedDeviceName") as string;
         const address = this.store.get("connectedDeviceAddress") as string;
         const modelName = this.store.get("connectedDeviceModelName") as string;
-        console.log({ name, address, modelName })
+
         if (!name || !address || !modelName) {
             throw new Error(`No connected device stored under: ${this.profile}`)
         }

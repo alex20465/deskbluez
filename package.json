@@ -1,6 +1,6 @@
 {
   "name": "deskbluez",
-  "version": "2.5.0",
+  "version": "2.5.1",
   "description": "CLI tool to control lower energy actuator systems (office desks) via bluetooth. ",
   "bin": {
     "deskbluez": "./bin/deskbluez"
@@ -17,7 +17,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "sv:release": "standard-version --release",
-    "sv:patch": "standard-version --patch",
+    "sv:patch": "standard-version --release-as patch",
     "sv:prerelease": "standard-version --prerelease"
   },
   "author": "",
