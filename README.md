@@ -90,7 +90,20 @@ hostname@user:~/$ deskbluez up
 hostname@user:~/$ deskbluez down
 ```
 
-## See also
+## Troubleshooting / FAQ
 
-- [Desk graph - graphql implementation ](https://github.com/alex20465/deskgraph)
-- [Desk man - ongoing electron app (under development)](https://github.com/alex20465/deskman)
+
+### How to disconnect my desk ?
+
+You can `disconnect` and `remove` the device using the `bluetoothctl` cli tool, just execute the following:
+
+```
+$ bluetoothctl
+
+[bluetoothctl] disconnect XX:XX:XX:XX:XX:XX
+[bluetoothctl] remove XX:XX:XX:XX:XX:XX
+```
+
+### Pairing / Connection ISSUES: `Authentication Failed`
+
+This error occurs in some distros, we managed to fix this by running the `bluetoothctl` shell open in the background, this could be related to security API restriction of the specific distro.

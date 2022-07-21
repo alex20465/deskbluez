@@ -1,8 +1,7 @@
 import { join } from "path";
 import { homedir } from "os";
-import { unlinkSync } from "fs";
+import { existsSync, readFileSync, unlinkSync, writeFileSync } from "fs";
 import logger from "./logger";
-import DataStore = require("data-store");
 
 interface ConnectedDevice {
     name: string
@@ -10,14 +9,48 @@ interface ConnectedDevice {
     modelName: string
 }
 
+class DataStore {
+
+    private store: Map<string, string | number | boolean> = new Map()
+
+    constructor(private readonly path: string) {
+        this._read()
+    }
+
+    set(key: string, value: string | number | boolean) {
+        const storedData = this.store.set(key, value)
+        this._dump()
+        return storedData
+    }
+
+
+    get(key: string): string | number | boolean {
+        console.log(this.store.keys())
+        return this.store.get(key)
+    }
+
+    private _dump() {
+        writeFileSync(this.path, JSON.stringify(Object.fromEntries(this.store)), { encoding: 'ascii' })
+    }
+
+    private _read() {
+        if (existsSync(this.path)) {
+            const data = readFileSync(this.path, { encoding: 'ascii' })
+            this.store = new Map(Object.entries(JSON.parse(data)))
+        } else {
+            this.store = new Map()
+        }
+    }
+}
+
 
 export class ConfigManager {
-    private store: any;
+    private store: DataStore;
     private path: string;
 
     constructor(private profile: string) {
         this.path = join(homedir(), ".config", `deskbluez-${this.profile}`);
-        this.store = new DataStore({ path: this.path });
+        this.store = new DataStore(this.path);
 
         logger.debug("CONFIG: load", { configPath: this.path, profile: this.profile });
     }
@@ -35,10 +68,10 @@ export class ConfigManager {
     }
 
     getConnectedDevice(): ConnectedDevice {
-        const name = this.store.get("connectedDeviceName");
-        const address = this.store.get("connectedDeviceAddress");
-        const modelName = this.store.get("connectedDeviceModelName");
-
+        const name = this.store.get("connectedDeviceName") as string;
+        const address = this.store.get("connectedDeviceAddress") as string;
+        const modelName = this.store.get("connectedDeviceModelName") as string;
+        console.log({ name, address, modelName })
         if (!name || !address || !modelName) {
             throw new Error(`No connected device stored under: ${this.profile}`)
         }
