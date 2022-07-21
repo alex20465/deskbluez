@@ -1,6 +1,6 @@
 {
   "name": "deskbluez",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "description": "CLI tool to control lower energy actuator systems (office desks) via bluetooth. ",
   "bin": {
     "deskbluez": "./bin/deskbluez"
@@ -34,6 +34,7 @@
     "@types/progress": "^2.0.3",
     "@types/prompts": "^2.0.9",
     "@types/treeify": "^1.0.0",
+    "standard-version": "^9.5.0",
     "typescript": "^4.1.3"
   },
   "resolutions": {

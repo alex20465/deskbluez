@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 2.4.0 (2022-07-21)
+
+
+### Bug Fixes
+
+* secure fix by upgrade dependencies ([4a19dbe](https://github.com/alex20465/deskbluez/commit/4a19dbeede2c705a7159822503b6feba29699e67))
+
 ## 2.3.0 (2022-01-29)
 
 
