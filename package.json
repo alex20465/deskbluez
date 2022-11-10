@@ -20,8 +20,8 @@
     "sv:patch": "standard-version --release-as patch",
     "sv:prerelease": "standard-version --prerelease"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Alexandros Fotiadis",
+  "license": "MIT",
   "dependencies": {
     "binary": "^0.3.0",
     "bluez": "^0.4.5",
@@ -31,7 +31,7 @@
     "treeify": "^1.1.0"
   },
   "devDependencies": {
-    "@types/node": "^14.14.14",
+    "@types/node": "^18.11.9",
     "@types/progress": "^2.0.3",
     "@types/prompts": "^2.0.9",
     "@types/treeify": "^1.0.0",
