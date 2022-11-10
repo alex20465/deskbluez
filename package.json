@@ -20,7 +20,11 @@
     "sv:patch": "standard-version --release-as patch",
     "sv:prerelease": "standard-version --prerelease"
   },
-  "author": "Alexandros Fotiadis",
+  "author": {
+    "email": "fotiadis@alexandros.blue",
+    "name": "Alexandros Fotiadis",
+    "url": "https://alexandros.blue"
+  },
   "license": "MIT",
   "dependencies": {
     "binary": "^0.3.0",
