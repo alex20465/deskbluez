@@ -107,3 +107,5 @@ $ bluetoothctl
 ### Pairing / Connection ISSUES: `Authentication Failed`
 
 This error occurs in some distros, we managed to fix this by running the `bluetoothctl` shell open in the background, this could be related to security API restriction of the specific distro.
+
+Built and maintained by [Techthos](https://www.techthos.net).
